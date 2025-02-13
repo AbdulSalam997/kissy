@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const maleTeddy = document.querySelector(".male");
+        const femaleTeddy = document.querySelector(".female");
+
+        let maleReached = false;
+        let femaleReached = false;
+
+        function checkHug() {
+          if (maleReached && femaleReached && navigator.vibrate) {
+            navigator.vibrate([200, 100, 200]); // Vibrate in a pattern
+          }
+        }
+
+        maleTeddy.addEventListener("animationend", function () {
+          maleReached = true;
+          checkHug();
+        });
+
+        femaleTeddy.addEventListener("animationend", function () {
+          femaleReached = true;
+          checkHug();
+        });
+      });
+    </script>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(to bottom, #f8e8ee, #ffe4e1);
+        margin: 0;
+      }
+
+      .heading {
+        font-family: "Lobster", cursive;
+        font-size: 45px;
+        color: #d37b93;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        margin-top: 50px;
+        animation: bounce 1s infinite alternate ease-in-out;
+        text-align: center;
+      }
+
+      /* Bounce animation */
+      @keyframes bounce {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-15px);
+        }
+      }
+
+      .scene {
+        position: relative;
+        width: 100%;
+        height: 600px;
+      }
+
+      .teddy {
+        margin-top: 10%;
+        position: absolute;
+        height: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .teddy .head {
+        width: 60px;
+        height: 60px;
+        background: inherit;
+        background-color: inherit; /* Ensure background color applies correctly */
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        z-index: 2; /* Bring head to the front */
+      }
+
+      .female-head {
+        transform: translateX(-15px);
+      }
+      .male-head {
+        transform: translateX(15px);
+      }
+
+      .teddy .ears {
+        width: 20px;
+        height: 20px;
+        background: inherit;
+        border-radius: 50%;
+        position: absolute;
+        top: -10px;
+        left: 0px;
+        box-shadow: 50px 0px 0px inherit;
+      }
+
+      .teddy .left-ear {
+        left: -18px;
+        box-shadow: none;
+      }
+
+      .teddy .eyes {
+        position: absolute;
+        top: 15px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 5px;
+      }
+
+      .teddy .eye {
+        width: 10px;
+        height: 10px;
+        background-color: black;
+        border-radius: 50%;
+      }
+
+      .teddy .mouth {
+        position: absolute;
+        bottom: 10px;
+        width: 30px;
+        height: 10px;
+        background: none;
+        border-bottom: 3px solid black;
+        border-radius: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .teddy .body {
+        width: 70px;
+        height: 80px;
+        background: inherit;
+        background-color: inherit;
+        border-radius: 40px;
+        position: absolute;
+        top: 50px;
+        z-index: 1; /* Place body behind the head */
+      }
+
+      .teddy .arm {
+        width: 30px;
+        height: 50px;
+        background: inherit;
+        border-radius: 20px;
+        position: absolute;
+        top: 60px;
+        /* animation: hug 2s infinite alternate ease-in-out; */
+      }
+
+      .teddy .left-arm {
+        left: -60px;
+        transform-origin: right center;
+        transform: rotate(225deg);
+        z-index: 5;
+        background-color: #cfa1a1;
+        top: 50px;
+      }
+      .teddy .right-arm {
+        /* right: 30px; */
+        transform-origin: left center;
+        transform: rotate(314deg);
+        z-index: 5;
+        background-color: #f2ac77;
+        top: 70px;
+        left: 12px;
+      }
+
+      .teddy .leg {
+        width: 30px;
+        height: 40px;
+        background: inherit;
+        border-radius: 20px;
+        position: absolute;
+        top: 110px;
+      }
+
+      /* .teddy .left-leg {
+        left: 10px;
+      }
+      .teddy .right-leg {
+        right: 5px;
+      } */
+
+      .male {
+        left: -120px;
+        background: #8b5e3b;
+        animation: run-male 3s linear forwards;
+      }
+
+      .female {
+        right: -120px;
+        background: #f5c6c6;
+        animation: run-female 3s linear forwards;
+      }
+
+      @keyframes run-male {
+        0% {
+          left: -120px;
+        }
+        100% {
+          left: 48%;
+        }
+      }
+
+      @keyframes run-female {
+        0% {
+          right: -120px;
+        }
+        100% {
+          right: 48%;
+        }
+      }
+
+      @keyframes hug {
+        0% {
+          transform: rotate(10deg);
+        }
+        100% {
+          transform: rotate(-10deg);
+        }
+      }
+
+      .heart {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: red;
+        transform: rotate(45deg);
+        opacity: 0;
+        z-index: 2;
+        top: -10%;
+        margin-left: 1%;
+        margin-top: -5%;
+      }
+
+      .heart::before,
+      .heart::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: red;
+        border-radius: 50%;
+      }
+
+      .heart::before {
+        top: -10px;
+        left: 0;
+      }
+      .heart::after {
+        left: -10px;
+        top: 0;
+      }
+
+      .heart1 {
+        left: 46%;
+        top: 40%;
+        animation: rise1 2s ease-out 3s forwards;
+      }
+      .heart2 {
+        left: 40%;
+        top: 40%;
+        animation: rise2 2s ease-out 3s forwards;
+      }
+      .heart3 {
+        left: 50%;
+        top: 40%;
+        animation: rise3 2s ease-out 3s forwards;
+      }
+
+      @keyframes rise1 {
+        0% {
+          top: 20%;
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          top: -20%;
+          opacity: 0;
+          left: 46%;
+        }
+      }
+
+      @keyframes rise2 {
+        0% {
+          top: 20%;
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          top: -20%;
+          opacity: 0;
+          left: 48%;
+        }
+      }
+
+      @keyframes rise3 {
+        0% {
+          top: 20%;
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          top: -20%;
+          opacity: 0;
+          left: 50%;
+        }
+      }
+      /* Mobile specific adjustments */
+      @media (max-width: 768px) {
+        .male {
+          animation: run-male-mobile 3s linear forwards;
+        }
+
+        .female {
+          animation: run-female-mobile 3s linear forwards;
+        }
+
+        @keyframes run-male-mobile {
+          0% {
+            left: -120px;
+          }
+          100% {
+            left: 39%;
+          }
+        }
+
+        @keyframes run-female-mobile {
+          0% {
+            right: -120px;
+          }
+          100% {
+            right: 39%;
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div style="margin-top: 30%">
+      <h1 class="heading">Happy Kiss Day Pumpy!!!</h1>
+      <div class="scene">
+        <div class="teddy male">
+          <!-- <div class="ears"></div> -->
+          <div class="ears left-ear"></div>
+          <div class="head male-head"></div>
+          <div class="eyes">
+            <div class="eye"></div>
+            <div class="eye"></div>
+          </div>
+          <div class="mouth"></div>
+          <div class="body"></div>
+          <!-- <div class="arm left-arm"></div> -->
+          <div class="arm right-arm"></div>
+          <div class="leg left-leg"></div>
+          <!-- <div class="leg right-leg"></div> -->
+        </div>
+        <div class="teddy female">
+          <div class="ears"></div>
+          <!-- <div class="ears left-ear"></div> -->
+          <div class="head female-head"></div>
+          <div class="eyes">
+            <div class="eye"></div>
+            <div class="eye"></div>
+          </div>
+          <div class="mouth"></div>
+          <div class="body"></div>
+          <div class="arm left-arm"></div>
+          <!-- <div class="arm right-arm"></div> -->
+          <!-- <div class="leg left-leg"></div> -->
+          <div class="leg right-leg"></div>
+        </div>
+        <div style="display: flex; flex-direction: column">
+          <div class="heart heart1"></div>
+          <div class="heart heart2"></div>
+          <div class="heart heart3"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
